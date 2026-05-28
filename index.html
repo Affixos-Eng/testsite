@@ -18,10 +18,10 @@
       --bg2: #0B1929;
       --card: rgba(11, 25, 45, 0.8);
       --border: rgba(255, 255, 255, 0.07);
-      --border-blue: rgba(59, 130, 246, 0.22);
-      --blue: #3B82F6;
-      --blue-hover: #60A5FA;
-      --blue-dim: rgba(59, 130, 246, 0.12);
+      --border-blue: rgba(112, 85, 232, 0.25);
+      --blue: #7055E8;
+      --blue-hover: #8B72FF;
+      --blue-dim: rgba(112, 85, 232, 0.12);
       --green: #34D399;
       --green-dim: rgba(52, 211, 153, 0.12);
       --white: #EFF6FF;
@@ -65,11 +65,83 @@
     }
 
     .nav-logo {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--white);
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: -0.01em;
+    }
+
+    .nav-logo img {
+      height: 52px;
+      width: auto;
+      display: block;
+    }
+
+    /* Watch Demo button */
+    .btn-watch {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-watch:hover {
+      border-color: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .btn-watch svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Video modal */
+    #demo-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #demo-modal.open { display: flex; }
+
+    .modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 920px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      font-family: var(--font);
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: #fff; }
+
+    .modal-video {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
     }
 
 
@@ -911,9 +983,24 @@
 <!-- Subtle particle background -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
+<!-- ── VIDEO MODAL ─────────────────────────────── -->
+<div id="demo-modal" role="dialog" aria-modal="true" aria-label="Product demo video" onclick="handleModalClick(event)">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeDemo()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13"/></svg>
+      Close
+    </button>
+    <video id="demo-video" class="modal-video" controls preload="none" src="demo.MP4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
 <!-- ── NAVIGATION ──────────────────────────────── -->
 <nav>
-  <a href="#" class="nav-logo">Affixos</a>
+  <a href="#" class="nav-logo">
+    <img src="Affixos-logo.png" alt="Affixos" />
+  </a>
   <ul class="nav-links">
     <li><a href="#how-it-works">Product</a></li>
     <li><a href="#features">Platform</a></li>
@@ -931,11 +1018,14 @@
       Unlock the Power of Your Assets with <span class="hl-accent">Real-Time Visibility</span>
     </h1>
     <p class="hero-sub">
-      Affixos offers a precision asset management platform providing real-time data on your assets through customized software and seamless integration. Transform the way your facility operates.
+      Track critical equipment in real time with sub-30cm accuracy across hospitals, factories, and operational facilities.
     </p>
     <div class="hero-actions">
-      <a href="#features" class="btn btn-primary">Explore the Platform</a>
-      <a href="#cta" class="btn btn-secondary">Book a Demo</a>
+      <a href="#cta" class="btn btn-primary">Request a Demo</a>
+      <button onclick="openDemo()" class="btn btn-watch">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><polygon points="10,8 16,12 10,16" fill="currentColor"/></svg>
+        Watch 2-min Demo
+      </button>
     </div>
     <div class="hero-stats">
       <div class="stat">
@@ -1174,14 +1264,17 @@
 <section id="cta">
   <div class="section-wrap">
     <div class="cta-box">
-      <span class="eyebrow" style="justify-content:center">Get Started</span>
-      <h2 class="cta-title">Ready to transform your<br>asset operations?</h2>
-      <p class="cta-sub">Join facilities teams using Affixos to eliminate search time, reduce losses, and make smarter operational decisions. Our team brings over four decades of combined experience to your deployment.</p>
+      <span class="eyebrow" style="justify-content:center">See It In Action</span>
+      <h2 class="cta-title">Curious how it works<br>in your facility?</h2>
+      <p class="cta-sub">We'll walk you through a live session tailored to your environment — no commitment required. See exactly how Affixos fits into your operations.</p>
       <div class="cta-actions">
-        <a href="mailto:support@Affixos.com" class="btn btn-primary">Book a Demo</a>
-        <a href="mailto:support@Affixos.com" class="btn btn-secondary">Talk to Sales</a>
+        <a href="mailto:support@affixos.com" class="btn btn-primary">Request a Free Demo</a>
+        <button onclick="openDemo()" class="btn btn-watch" style="border-color:rgba(112,85,232,0.4);color:var(--white)">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><polygon points="10,8 16,12 10,16"/></svg>
+          Watch 2-min Demo
+        </button>
       </div>
-      <p class="cta-contact">Questions? Email us at <a href="mailto:support@Affixos.com">support@Affixos.com</a></p>
+      <p class="cta-contact">Questions? Email us at <a href="mailto:support@affixos.com">support@affixos.com</a></p>
     </div>
   </div>
 </section>
@@ -1215,7 +1308,7 @@
       <div>
         <div class="footer-col-title">Connect</div>
         <ul class="footer-links">
-          <li><a href="mailto:support@Affixos.com">support@Affixos.com</a></li>
+          <li><a href="mailto:support@affixos.com">support@affixos.com</a></li>
           <li><a href="https://www.linkedin.com/company/affixos/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="#">New York, NY</a></li>
         </ul>
@@ -1225,7 +1318,7 @@
       <span class="footer-copy">© Affixos. All rights reserved.</span>
       <div class="footer-social">
         <a href="https://www.linkedin.com/company/affixos/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:support@Affixos.com">Contact</a>
+        <a href="mailto:support@affixos.com">Contact</a>
       </div>
     </div>
   </div>
@@ -1364,6 +1457,32 @@
     scrollTrigger: { trigger: '#cta', start: 'top 78%' },
   });
 })();
+
+// ── VIDEO MODAL ────────────────────────────────────────────────────────────
+function openDemo() {
+  const modal = document.getElementById('demo-modal');
+  const video = document.getElementById('demo-video');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  video.play();
+}
+
+function closeDemo() {
+  const modal = document.getElementById('demo-modal');
+  const video = document.getElementById('demo-video');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  video.pause();
+  video.currentTime = 0;
+}
+
+function handleModalClick(e) {
+  if (e.target === document.getElementById('demo-modal')) closeDemo();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDemo();
+});
 </script>
 </body>
 </html>
