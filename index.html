@@ -938,6 +938,241 @@
 
     .footer-social a:hover { color: var(--white); }
 
+    /* ── DIGITAL TWIN ────────────────────────────── */
+    #digital-twin { padding: 120px 0 0; }
+
+    .twin-header { margin-bottom: 48px; }
+
+    .twin-stage {
+      position: relative;
+      height: 640px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 110%, rgba(112,85,232,0.1), transparent 70%),
+        linear-gradient(180deg, rgba(11,25,41,0.4), transparent 30%);
+    }
+
+    #twin-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+
+    .twin-hud {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hud-badge {
+      position: absolute;
+      top: 20px; left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6,14,27,0.85);
+      border: 1px solid rgba(52,211,153,0.35);
+      border-radius: 6px;
+      backdrop-filter: blur(10px);
+      padding: 8px 14px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    .hud-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px rgba(52,211,153,0.5);
+      animation: breathe 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .hud-stats {
+      position: absolute;
+      top: 20px; right: 24px;
+      display: flex;
+      background: rgba(6,14,27,0.85);
+      border: 1px solid var(--border-blue);
+      border-radius: 6px;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .hud-stat { padding: 8px 18px; }
+
+    .hud-stat + .hud-stat { border-left: 1px solid var(--border); }
+
+    .hud-stat-num {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .hud-stat-num .accent { color: var(--blue-hover); }
+
+    .hud-stat-label {
+      font-size: 0.62rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hud-feed {
+      position: absolute;
+      bottom: 20px; left: 24px;
+      width: 330px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .feed-item {
+      background: rgba(6,14,27,0.82);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--blue);
+      border-radius: 4px;
+      backdrop-filter: blur(8px);
+      padding: 7px 12px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: feedIn 0.4s ease forwards;
+    }
+
+    .feed-item.green { border-left-color: var(--green); }
+
+    .feed-item .feed-time {
+      color: var(--dim);
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @keyframes feedIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hud-legend {
+      position: absolute;
+      bottom: 20px; right: 24px;
+      display: flex;
+      gap: 18px;
+      background: rgba(6,14,27,0.82);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      backdrop-filter: blur(8px);
+    }
+
+    .legend-item { display: flex; align-items: center; gap: 7px; }
+
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    .legend-dot.tag { background: var(--green); box-shadow: 0 0 6px rgba(52,211,153,0.6); }
+
+    .legend-dot.anchor { background: var(--blue-hover); box-shadow: 0 0 6px rgba(139,114,255,0.6); }
+
+    .legend-dot.staff { background: #B9D2FF; box-shadow: 0 0 6px rgba(185,210,255,0.6); }
+
+    .legend-dot.gw { background: #FBBF24; box-shadow: 0 0 6px rgba(251,191,36,0.6); }
+
+    .feed-item.amber { border-left-color: #FBBF24; }
+
+    .twin-notes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding-top: 36px;
+    }
+
+    .twin-note {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .tn-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--blue-dim);
+      border: 1px solid var(--border-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tn-icon svg {
+      width: 18px;
+      height: 18px;
+      color: var(--blue);
+    }
+
+    .tn-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .tn-desc {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    /* ── CARD CURSOR SPOTLIGHT ───────────────────── */
+    .ind-card { position: relative; }
+
+    .feat-card::after, .ind-card::after, .step-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(112,85,232,0.14), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .feat-card:hover::after, .ind-card:hover::after, .step-card:hover::after { opacity: 1; }
+
+    /* ── HERO SCANLINE ───────────────────────────── */
+    .hero-img-frame::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 110px;
+      top: -30%;
+      background: linear-gradient(to bottom, transparent, rgba(112,85,232,0.16) 40%, rgba(52,211,153,0.1) 60%, transparent);
+      z-index: 2;
+      pointer-events: none;
+      animation: scan 6s cubic-bezier(0.45, 0, 0.35, 1) infinite;
+    }
+
+    @keyframes scan {
+      0% { top: -30%; }
+      65%, 100% { top: 115%; }
+    }
+
     /* ── DIVIDER ─────────────────────────────────── */
     .section-divider {
       max-width: 1200px;
@@ -955,6 +1190,7 @@
       .inaction-grid { grid-template-columns: 1fr; }
       .ind-grid { grid-template-columns: 1fr 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
+      .twin-stage { height: 520px; }
     }
 
     @media (max-width: 768px) {
@@ -962,6 +1198,12 @@
       .nav-links { display: none; }
       #hero { padding: 92px 20px 56px; }
       #how-it-works, #features, #in-action, #industries, #cta { padding: 80px 0; }
+      #digital-twin { padding: 80px 0 0; }
+      .twin-stage { height: 420px; }
+      .hud-stats, .hud-legend { display: none; }
+      .hud-feed { width: auto; left: 16px; right: 16px; }
+      .hud-badge { top: 16px; left: 16px; }
+      .twin-notes { grid-template-columns: 1fr; gap: 20px; padding-top: 28px; }
       .section-wrap { padding: 0 20px; }
       .steps-grid { grid-template-columns: 1fr; }
       .ind-grid { grid-template-columns: 1fr; }
@@ -1003,6 +1245,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#how-it-works">Product</a></li>
+    <li><a href="#digital-twin">Live Map</a></li>
     <li><a href="#features">Platform</a></li>
     <li><a href="#in-action">In Action</a></li>
     <li><a href="#industries">Industries</a></li>
@@ -1033,17 +1276,17 @@
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <span class="stat-num">&lt;<span class="accent">30</span>cm</span>
+        <span class="stat-num">&lt;<span class="accent" data-count="30">30</span>cm</span>
         <span class="stat-label">Location Accuracy</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <span class="stat-num"><span class="accent">4</span>ms</span>
+        <span class="stat-num"><span class="accent" data-count="4">4</span>ms</span>
         <span class="stat-label">Real-Time Latency</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <span class="stat-num"><span class="accent">99.9</span>%</span>
+        <span class="stat-num"><span class="accent" data-count="99.9">99.9</span>%</span>
         <span class="stat-label">Uptime SLA</span>
       </div>
     </div>
@@ -1085,7 +1328,7 @@
           <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
         </svg>
         <h3 class="step-title">Deploy Tags &amp; Anchors</h3>
-        <p class="step-desc">Attach compact UWB tags to assets. Mount weatherproof anchors at fixed positions to establish the tracking infrastructure across each floor.</p>
+        <p class="step-desc">Attach compact UWB tags to assets. Mount weatherproof anchors at fixed positions to establish the tracking infrastructure across each floor — no new network drops or rewiring required.</p>
       </div>
 
       <div class="step-card">
@@ -1118,6 +1361,71 @@
   </div>
 </section>
 
+<!-- ── LIVE DIGITAL TWIN ──────────────────────── -->
+<section id="digital-twin">
+  <div class="section-wrap twin-header">
+    <span class="eyebrow">Live Digital Twin</span>
+    <h2 class="section-title">Your facility, mirrored in real time</h2>
+    <p class="section-sub">Every tag, every anchor, every movement — rendered as a living 3D model. Move your cursor across the floor plan to explore.</p>
+  </div>
+  <div class="twin-stage">
+    <canvas id="twin-canvas" aria-hidden="true"></canvas>
+    <div class="twin-hud" aria-hidden="true">
+      <div class="hud-badge">Live Simulation — Floors 1 &amp; 2</div>
+      <div class="hud-stats">
+        <div class="hud-stat">
+          <span class="hud-stat-num"><span class="accent">6</span></span>
+          <span class="hud-stat-label">Tags Active</span>
+        </div>
+        <div class="hud-stat">
+          <span class="hud-stat-num">12</span>
+          <span class="hud-stat-label">Anchors</span>
+        </div>
+        <div class="hud-stat">
+          <span class="hud-stat-num"><span class="accent">4</span>ms</span>
+          <span class="hud-stat-label">Latency</span>
+        </div>
+      </div>
+      <div class="hud-feed" id="hud-feed"></div>
+      <div class="hud-legend">
+        <div class="legend-item"><span class="legend-dot tag"></span>Asset Tag</div>
+        <div class="legend-item"><span class="legend-dot anchor"></span>UWB Anchor</div>
+        <div class="legend-item"><span class="legend-dot gw"></span>Gateway</div>
+        <div class="legend-item"><span class="legend-dot staff"></span>Staff</div>
+      </div>
+    </div>
+  </div>
+  <div class="section-wrap twin-notes">
+    <div class="twin-note">
+      <span class="tn-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+      </span>
+      <div>
+        <span class="tn-title">Zero new network drops</span>
+        <span class="tn-desc">Anchors relay wirelessly over the proprietary Affixos Net to a single gateway — no cabling runs, no switch ports, no IT tickets.</span>
+      </div>
+    </div>
+    <div class="twin-note">
+      <span class="tn-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      </span>
+      <div>
+        <span class="tn-title">No infrastructure changes</span>
+        <span class="tn-desc">Mount the anchors, attach the tags, and you're live — deployment takes days, not months, with your building untouched.</span>
+      </div>
+    </div>
+    <div class="twin-note">
+      <span class="tn-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19a4.5 4.5 0 1 0-.42-8.98 6 6 0 1 0-11.4 2.44A3.5 3.5 0 0 0 6.5 19h11z"/></svg>
+      </span>
+      <div>
+        <span class="tn-title">Cloud-hosted or on-prem</span>
+        <span class="tn-desc">Run the platform in our managed cloud, or keep every byte inside your own network with the fully on-premises option.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── FEATURES ────────────────────────────────── -->
 <section id="features">
   <div class="section-wrap">
@@ -1139,6 +1447,7 @@
           <li>Easy attachment and rapid deployment</li>
           <li>Real-time signal transmission at 4ms latency</li>
           <li>Scalable anchor network architecture</li>
+          <li>Proprietary Affixos Net — zero new network drops or cabling</li>
         </ul>
       </div>
 
@@ -1153,6 +1462,7 @@
           <li>REST API integration with existing hospital systems</li>
           <li>User-friendly web dashboard interface</li>
           <li>Historical data analysis and reporting</li>
+          <li>Cloud-hosted or fully on-premises deployment options</li>
         </ul>
       </div>
     </div>
@@ -1412,6 +1722,613 @@
   });
 })();
 
+// ── LIVE DIGITAL TWIN — 3D HOSPITAL WIREFRAME ──────────────────────────────
+(function () {
+  const stage = document.querySelector('.twin-stage');
+  const canvas = document.getElementById('twin-canvas');
+  if (!stage || !canvas || typeof THREE === 'undefined') return;
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x060E1B, 80, 170);
+
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 400);
+
+  // ---- hospital wireframe: 2 floors, centre corridor, rooms both sides ----
+  const W = 22, D = 13, H = 7, FLOORS = 2;
+  const outerPts = [], innerPts = [];
+  const line = (a, x1, y1, z1, x2, y2, z2) => a.push(x1, y1, z1, x2, y2, z2);
+  const rect = (a, y, hw, hd) => {
+    line(a, -hw, y, -hd,  hw, y, -hd);
+    line(a,  hw, y, -hd,  hw, y,  hd);
+    line(a,  hw, y,  hd, -hw, y,  hd);
+    line(a, -hw, y,  hd, -hw, y, -hd);
+  };
+  for (let f = 0; f <= FLOORS; f++) rect(outerPts, f * H, W, D);
+  [[-W, -D], [W, -D], [W, D], [-W, D]].forEach(([x, z]) => line(outerPts, x, 0, z, x, FLOORS * H, z));
+  [-11, 0, 11].forEach(x => {
+    line(innerPts, x, 0, -D, x, FLOORS * H, -D);
+    line(innerPts, x, 0,  D, x, FLOORS * H,  D);
+  });
+
+  const dividers = [-13.2, -4.4, 4.4, 13.2];
+  for (let f = 0; f < FLOORS; f++) {
+    const y = f * H, t = y + 3;
+    line(innerPts, -W, y, -3.5, W, y, -3.5);
+    line(innerPts, -W, y,  3.5, W, y,  3.5);
+    line(innerPts, -W, t, -3.5, W, t, -3.5);
+    line(innerPts, -W, t,  3.5, W, t,  3.5);
+    dividers.forEach(x => {
+      line(innerPts, x, y,  3.5, x, y,  D);
+      line(innerPts, x, y, -D,   x, y, -3.5);
+      line(innerPts, x, t,  3.5, x, t,  D);
+      line(innerPts, x, t, -D,   x, t, -3.5);
+      [3.5, -3.5, D, -D].forEach(z => line(innerPts, x, y, z, x, t, z));
+    });
+  }
+
+  function lineSegs(pts, color, opacity) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    return new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity }));
+  }
+  scene.add(lineSegs(outerPts, 0x8B72FF, 0.5));
+  scene.add(lineSegs(innerPts, 0x7055E8, 0.16));
+
+  const grid = new THREE.GridHelper(130, 26, 0x22355C, 0x14233D);
+  grid.material.transparent = true;
+  grid.material.opacity = 0.3;
+  grid.position.y = -0.02;
+  scene.add(grid);
+
+  // ---- hospital beds: wireframe frames + headboards in the ward rooms ----
+  const roomX = [-17.6, -8.8, 0, 8.8, 17.6];
+  const bedPts = [];
+  function addBed(cx, fy, cz, dir) {
+    const h = 0.65, hw = 0.55, hl = 1.05;
+    const zh = cz + dir * hl; // headboard end, toward the outer wall
+    // frame top
+    line(bedPts, cx - hw, fy + h, cz - hl, cx + hw, fy + h, cz - hl);
+    line(bedPts, cx + hw, fy + h, cz - hl, cx + hw, fy + h, cz + hl);
+    line(bedPts, cx + hw, fy + h, cz + hl, cx - hw, fy + h, cz + hl);
+    line(bedPts, cx - hw, fy + h, cz + hl, cx - hw, fy + h, cz - hl);
+    // legs
+    [[cx - hw, cz - hl], [cx + hw, cz - hl], [cx + hw, cz + hl], [cx - hw, cz + hl]]
+      .forEach(([x, z]) => line(bedPts, x, fy, z, x, fy + h, z));
+    // headboard
+    line(bedPts, cx - hw, fy + h, zh, cx - hw, fy + 1.3, zh);
+    line(bedPts, cx + hw, fy + h, zh, cx + hw, fy + 1.3, zh);
+    line(bedPts, cx - hw, fy + 1.3, zh, cx + hw, fy + 1.3, zh);
+    // pillow line
+    line(bedPts, cx - hw + 0.15, fy + h + 0.14, zh - dir * 0.5, cx + hw - 0.15, fy + h + 0.14, zh - dir * 0.5);
+  }
+  for (let f = 0; f < FLOORS; f++) {
+    const fy = f * H;
+    roomX.forEach((cx, i) => {
+      [1, -1].forEach((dir, s) => {
+        const k = i + s + f;
+        if (k % 3 === 0) return; // leave some rooms unfurnished
+        addBed(cx - 2.1, fy, dir * 10.6, dir);
+        if (k % 2 === 0) addBed(cx + 2.1, fy, dir * 10.6, dir);
+      });
+    });
+  }
+  scene.add(lineSegs(bedPts, 0x7055E8, 0.32));
+
+  // ---- glow sprite texture ----
+  function glowTex(r, g, b) {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const x = c.getContext('2d');
+    const grad = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, `rgba(${r},${g},${b},1)`);
+    grad.addColorStop(0.3, `rgba(${r},${g},${b},0.6)`);
+    grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+    x.fillStyle = grad;
+    x.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  }
+  const greenTex = glowTex(52, 211, 153);
+  const purpleTex = glowTex(139, 114, 255);
+  const amberTex = glowTex(251, 191, 36);
+
+  // ---- anchors: ceiling-mounted, 6 per floor; one is the gateway (GW-1001) ----
+  const anchorGeo = new THREE.OctahedronGeometry(0.45);
+  const anchorMat = new THREE.MeshBasicMaterial({ color: 0x8B72FF });
+  const gwGeo = new THREE.OctahedronGeometry(0.65);
+  const gwMat = new THREE.MeshBasicMaterial({ color: 0xFBBF24 });
+  const anchors = [];
+  for (let f = 0; f < FLOORS; f++) {
+    [[-18, -11], [0, -11], [18, -11], [-18, 11], [0, 11], [18, 11]].forEach(([x, z]) => {
+      const gw = f === 0 && x === 18 && z === -11; // gateway sits above the server room
+      const mesh = new THREE.Mesh(gw ? gwGeo : anchorGeo, gw ? gwMat : anchorMat);
+      mesh.position.set(x, f * H + H - 0.7, z);
+      const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: gw ? amberTex : purpleTex, transparent: true, opacity: gw ? 0.7 : 0.55, depthWrite: false }));
+      const base = gw ? 3 : 2.2;
+      glow.scale.set(base, base, 1);
+      mesh.add(glow);
+      scene.add(mesh);
+      anchors.push({ mesh, glow, floor: f, flash: 0, gw, base });
+    });
+  }
+  const gateway = anchors.find(a => a.gw);
+
+  // ---- server rack in the corner room: where the gateway lands the data ----
+  const srv = { x: 19.6, z: -10.6, hw: 0.6, hd: 0.45, h: 2.0 };
+  const srvPts = [];
+  [0, 0.5, 1.0, 1.5, srv.h].forEach(y => {
+    line(srvPts, srv.x - srv.hw, y, srv.z - srv.hd, srv.x + srv.hw, y, srv.z - srv.hd);
+    line(srvPts, srv.x + srv.hw, y, srv.z - srv.hd, srv.x + srv.hw, y, srv.z + srv.hd);
+    line(srvPts, srv.x + srv.hw, y, srv.z + srv.hd, srv.x - srv.hw, y, srv.z + srv.hd);
+    line(srvPts, srv.x - srv.hw, y, srv.z + srv.hd, srv.x - srv.hw, y, srv.z - srv.hd);
+  });
+  [[srv.x - srv.hw, srv.z - srv.hd], [srv.x + srv.hw, srv.z - srv.hd], [srv.x + srv.hw, srv.z + srv.hd], [srv.x - srv.hw, srv.z + srv.hd]]
+    .forEach(([x, z]) => line(srvPts, x, 0, z, x, srv.h, z));
+  scene.add(lineSegs(srvPts, 0x8B72FF, 0.4));
+
+  const serverTop = new THREE.Vector3(srv.x, srv.h + 0.05, srv.z);
+
+  // status LEDs on the rack + a soft glow that flares when data arrives
+  const serverLeds = [];
+  [-0.35, 0, 0.35].forEach((dx, i) => {
+    const led = new THREE.Sprite(new THREE.SpriteMaterial({ map: i === 1 ? amberTex : greenTex, transparent: true, opacity: 0.7, depthWrite: false }));
+    led.scale.set(0.35, 0.35, 1);
+    led.position.set(srv.x + dx, 1.75, srv.z + srv.hd + 0.05);
+    scene.add(led);
+    serverLeds.push(led);
+  });
+  const serverGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: amberTex, transparent: true, opacity: 0.18, depthWrite: false }));
+  serverGlow.scale.set(3.4, 3.4, 1);
+  serverGlow.position.set(srv.x, 1.0, srv.z);
+  scene.add(serverGlow);
+  let serverFlash = 0;
+
+  // permanent drop line from the gateway down to the rack
+  const dropPts = [];
+  line(dropPts, gateway.mesh.position.x, gateway.mesh.position.y, gateway.mesh.position.z, serverTop.x, serverTop.y, serverTop.z);
+  scene.add(lineSegs(dropPts, 0xFBBF24, 0.22));
+
+  // ---- data packets: anchor → Affixos Net hop → gateway → server ----
+  const packets = [];
+  for (let i = 0; i < 6; i++) {
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: amberTex, transparent: true, opacity: 0, depthWrite: false }));
+    sprite.scale.set(0.9, 0.9, 1);
+    scene.add(sprite);
+    const lg = new THREE.BufferGeometry();
+    lg.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(6), 3));
+    const hopLine = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: 0xFBBF24, transparent: true, opacity: 0 }));
+    scene.add(hopLine);
+    packets.push({ sprite, line: hopLine, path: null, seg: 0, t: 0 });
+  }
+
+  function spawnPacket(path) {
+    const pk = packets.find(p => !p.path);
+    if (!pk || path.length < 2) return;
+    pk.path = path;
+    pk.seg = 0;
+    pk.t = 0;
+    pk.sprite.material.opacity = 0.9;
+  }
+
+  const PKT_SPEED = 26;
+  function updatePackets(dt) {
+    packets.forEach(pk => {
+      if (!pk.path) return;
+      let a = pk.path[pk.seg], b = pk.path[pk.seg + 1];
+      pk.t += PKT_SPEED * dt / a.distanceTo(b);
+      if (pk.t >= 1) {
+        pk.seg++;
+        pk.t = 0;
+        if (pk.seg >= pk.path.length - 1) {
+          pk.path = null;
+          pk.sprite.material.opacity = 0;
+          pk.line.material.opacity = 0;
+          serverFlash = 1; // data landed
+          return;
+        }
+        a = pk.path[pk.seg];
+        b = pk.path[pk.seg + 1];
+      }
+      pk.sprite.position.lerpVectors(a, b, pk.t);
+      const arr = pk.line.geometry.attributes.position.array;
+      arr[0] = a.x; arr[1] = a.y; arr[2] = a.z;
+      arr[3] = b.x; arr[4] = b.y; arr[5] = b.z;
+      pk.line.geometry.attributes.position.needsUpdate = true;
+      pk.line.material.opacity = 0.3;
+    });
+  }
+
+  // Routes go via the corridor so nothing cuts through walls
+  function planRoute(ent, p, roomZ) {
+    const q = [];
+    if (Math.abs(p.z) > 3.5) q.push(new THREE.Vector3(p.x, ent.y, 0));
+    if (Math.random() < 0.4) {
+      const x = roomX[(Math.random() * roomX.length) | 0];
+      const z = (Math.random() < 0.5 ? 1 : -1) * roomZ;
+      q.push(new THREE.Vector3(x, ent.y, 0), new THREE.Vector3(x, ent.y, z));
+    } else {
+      q.push(new THREE.Vector3((Math.random() - 0.5) * 40, ent.y, (Math.random() - 0.5) * 5));
+    }
+    ent.queue = q;
+  }
+
+  const step = new THREE.Vector3();
+
+  // ---- people: wireframe staff & patients walking the floors ----
+  const personMat = new THREE.LineBasicMaterial({ color: 0xB9D2FF, transparent: true, opacity: 0.5 });
+  function personSegs(pts) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    return new THREE.LineSegments(g, personMat);
+  }
+  function limb(x, y, len) {
+    const pivot = new THREE.Group();
+    pivot.position.set(x, y, 0);
+    pivot.add(personSegs([0, 0, 0, 0, -len, 0]));
+    return pivot;
+  }
+  function makePerson() {
+    const g = new THREE.Group();
+    const pts = [];
+    // head: two crossed rings so it reads from every angle
+    for (let i = 0; i < 8; i++) {
+      const a1 = i / 8 * Math.PI * 2, a2 = (i + 1) / 8 * Math.PI * 2;
+      pts.push(0.15 * Math.sin(a1), 1.62 + 0.15 * Math.cos(a1), 0,
+               0.15 * Math.sin(a2), 1.62 + 0.15 * Math.cos(a2), 0);
+      pts.push(0, 1.62 + 0.15 * Math.cos(a1), 0.15 * Math.sin(a1),
+               0, 1.62 + 0.15 * Math.cos(a2), 0.15 * Math.sin(a2));
+    }
+    pts.push(0, 1.47, 0, 0, 0.92, 0);        // spine
+    pts.push(-0.26, 1.36, 0, 0.26, 1.36, 0); // shoulders
+    pts.push(-0.14, 0.92, 0, 0.14, 0.92, 0); // hips
+    g.add(personSegs(pts));
+    const parts = {
+      legL: limb(-0.13, 0.92, 0.9), legR: limb(0.13, 0.92, 0.9),
+      armL: limb(-0.26, 1.36, 0.62), armR: limb(0.26, 1.36, 0.62),
+    };
+    Object.values(parts).forEach(p => g.add(p));
+    return { group: g, parts };
+  }
+
+  const people = [];
+  for (let i = 0; i < 5; i++) {
+    const floor = i % 2;
+    const { group, parts } = makePerson();
+    group.position.set((Math.random() - 0.5) * 36, floor * H, (Math.random() - 0.5) * 4);
+    scene.add(group);
+    people.push({ group, parts, floor, y: floor * H, queue: [], dwell: Math.random() * 2, phase: Math.random() * 6, moveAmt: 0 });
+  }
+
+  function updatePerson(pr, dt) {
+    const p = pr.group.position;
+    let moving = 0;
+    if (pr.dwell > 0) {
+      pr.dwell -= dt;
+    } else {
+      if (!pr.queue.length) planRoute(pr, p, 8.8); // stop at the bedside, cart in front
+      const target = pr.queue[0];
+      step.subVectors(target, p);
+      const dist = step.length();
+      if (dist < 0.12) {
+        pr.queue.shift();
+        if (!pr.queue.length) pr.dwell = 1 + Math.random() * 3;
+      } else {
+        pr.group.rotation.y = Math.atan2(step.x, step.z);
+        p.add(step.multiplyScalar(Math.min(2.2 * dt / dist, 1)));
+        moving = 1;
+      }
+    }
+    pr.moveAmt += (moving - pr.moveAmt) * Math.min(1, dt * 6);
+    pr.phase += dt * 7 * pr.moveAmt;
+    const sw = Math.sin(pr.phase) * 0.5 * pr.moveAmt;
+    pr.parts.legL.rotation.x = sw;
+    pr.parts.legR.rotation.x = -sw;
+    pr.parts.armL.rotation.x = -sw * 0.6;
+    pr.parts.armR.rotation.x = sw * 0.6;
+    p.y = pr.y + Math.abs(Math.sin(pr.phase)) * 0.06 * pr.moveAmt;
+  }
+
+  // ---- equipment the staff push, with green UWB tags mounted on it ----
+  function makeIVPole() {
+    const g = new THREE.Group();
+    g.add(personSegs([
+      0, 0.05, 0,      0, 1.75, 0,      // pole
+      -0.22, 1.75, 0,  0.22, 1.75, 0,   // hanger cross
+      0, 1.75, -0.22,  0, 1.75, 0.22,
+      -0.25, 0.05, 0,  0.25, 0.05, 0,   // base cross
+      0, 0.05, -0.25,  0, 0.05, 0.25,
+    ]));
+    return { group: g, tagY: 1.55 };
+  }
+  function makeCart() {
+    const g = new THREE.Group();
+    const hw = 0.38, hd = 0.3, h = 0.85;
+    const pts = [];
+    [h, 0.12].forEach(y => {
+      pts.push(
+        -hw, y, -hd,  hw, y, -hd,
+         hw, y, -hd,  hw, y,  hd,
+         hw, y,  hd, -hw, y,  hd,
+        -hw, y,  hd, -hw, y, -hd,
+      );
+    });
+    [[-hw, -hd], [hw, -hd], [hw, hd], [-hw, hd]].forEach(([x, z]) => pts.push(x, 0.12, z, x, h, z));
+    g.add(personSegs(pts));
+    return { group: g, tagY: h + 0.2 };
+  }
+
+  const TAG_IDS = ['AFT-221', 'AFT-108', 'AFT-773', 'AFT-412', 'AFT-056', 'AFT-390'];
+  const TRAIL = 60;
+  const tags = [];
+  const tagWorld = new THREE.Vector3();
+
+  function mountTag(id, parent, y, floor) {
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: greenTex, transparent: true, opacity: 0.95, depthWrite: false }));
+    sprite.scale.set(1.7, 1.7, 1);
+    sprite.position.set(0, y, 0);
+    parent.add(sprite);
+    tags.push({ id, sprite, floor, trail: null });
+  }
+
+  people.forEach((pr, i) => {
+    const equip = i % 2 ? makeCart() : makeIVPole();
+    equip.group.position.set(0, 0, 0.6); // pushed ahead of the person
+    pr.group.add(equip.group);
+    mountTag(TAG_IDS[i], equip.group, equip.tagY, pr.floor);
+  });
+
+  // one spare tag parked on stored equipment in a ward room
+  const parked = new THREE.Group();
+  parked.position.set(-10.9, 0.65, 10.6);
+  scene.add(parked);
+  mountTag(TAG_IDS[5], parked, 0.45, 0);
+
+  // trails start from each tag's true world position
+  scene.updateMatrixWorld(true);
+  tags.forEach(tag => {
+    tag.sprite.getWorldPosition(tagWorld);
+    const tPos = new Float32Array(TRAIL * 3);
+    const tCol = new Float32Array(TRAIL * 3);
+    for (let j = 0; j < TRAIL; j++) {
+      tPos[j * 3] = tagWorld.x;
+      tPos[j * 3 + 1] = tagWorld.y - 0.3;
+      tPos[j * 3 + 2] = tagWorld.z;
+      const k = 1 - j / TRAIL;
+      tCol[j * 3] = 0.2 * k;
+      tCol[j * 3 + 1] = 0.83 * k;
+      tCol[j * 3 + 2] = 0.6 * k;
+    }
+    const tg = new THREE.BufferGeometry();
+    tg.setAttribute('position', new THREE.BufferAttribute(tPos, 3));
+    tg.setAttribute('color', new THREE.BufferAttribute(tCol, 3));
+    scene.add(new THREE.Line(tg, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.9 })));
+    tag.trail = tg;
+  });
+
+  function updateTagTrail(tag) {
+    tag.sprite.getWorldPosition(tagWorld);
+    const arr = tag.trail.attributes.position.array;
+    arr.copyWithin(3, 0, (TRAIL - 1) * 3);
+    arr[0] = tagWorld.x;
+    arr[1] = tagWorld.y - 0.3;
+    arr[2] = tagWorld.z;
+    tag.trail.attributes.position.needsUpdate = true;
+  }
+
+  // ---- ranging lines (tag → 3 nearest anchors) + floor pulse rings ----
+  const rangePool = [];
+  for (let i = 0; i < 3; i++) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(6), 3));
+    const l = new THREE.Line(g, new THREE.LineBasicMaterial({ color: 0x8B72FF, transparent: true, opacity: 0 }));
+    scene.add(l);
+    rangePool.push(l);
+  }
+  let rangeT = 10, rangeTimer = 1.5;
+
+  const rings = [];
+  const ringGeo = new THREE.RingGeometry(0.5, 0.62, 40);
+  for (let i = 0; i < 4; i++) {
+    const m = new THREE.MeshBasicMaterial({ color: 0x34D399, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+    const r = new THREE.Mesh(ringGeo, m);
+    r.rotation.x = -Math.PI / 2;
+    scene.add(r);
+    rings.push({ mesh: r, t: 10 });
+  }
+
+  function triggerRanging() {
+    const tag = tags[(Math.random() * tags.length) | 0];
+    const p = tag.sprite.getWorldPosition(tagWorld);
+    const near = anchors
+      .filter(a => a.floor === tag.floor)
+      .sort((a, b) => a.mesh.position.distanceToSquared(p) - b.mesh.position.distanceToSquared(p))
+      .slice(0, 3);
+    near.forEach((a, i) => {
+      const arr = rangePool[i].geometry.attributes.position.array;
+      arr[0] = p.x; arr[1] = p.y; arr[2] = p.z;
+      arr[3] = a.mesh.position.x; arr[4] = a.mesh.position.y; arr[5] = a.mesh.position.z;
+      rangePool[i].geometry.attributes.position.needsUpdate = true;
+      a.flash = 1;
+    });
+    rangeT = 0;
+
+    // relay the position fix over the Affixos Net to the gateway, then the server
+    const src = near[0];
+    const path = [src.mesh.position.clone()];
+    if (src !== gateway) {
+      if (src.floor !== gateway.floor) {
+        // hop down via the anchor mounted directly below on the gateway floor
+        const mid = anchors.find(a =>
+          a.floor === gateway.floor && a !== gateway &&
+          a.mesh.position.x === src.mesh.position.x && a.mesh.position.z === src.mesh.position.z);
+        if (mid) {
+          path.push(mid.mesh.position.clone());
+          mid.flash = 0.7;
+        }
+      }
+      path.push(gateway.mesh.position.clone());
+      gateway.flash = 0.7;
+    }
+    path.push(serverTop.clone());
+    spawnPacket(path);
+    const ring = rings.find(r => r.t > 1.2);
+    if (ring) {
+      ring.t = 0;
+      ring.mesh.position.set(p.x, tag.floor * H + 0.06, p.z);
+    }
+  }
+
+  // ---- camera: slow orbit + mouse parallax + scroll fly-in ----
+  let visible = false, mx = 0, my = 0, ang = 0.6, camY = 24;
+  const cam = { dist: 60 };
+  const clock = new THREE.Clock();
+
+  stage.addEventListener('mousemove', e => {
+    const r = stage.getBoundingClientRect();
+    mx = ((e.clientX - r.left) / r.width) * 2 - 1;
+    my = ((e.clientY - r.top) / r.height) * 2 - 1;
+  });
+
+  new IntersectionObserver(entries => { visible = entries[0].isIntersecting; }, { threshold: 0.05 }).observe(stage);
+
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !reduceMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+    cam.dist = 105;
+    gsap.to(cam, {
+      dist: 60, duration: 2.4, ease: 'power2.out',
+      scrollTrigger: { trigger: '#digital-twin', start: 'top 70%' },
+    });
+  }
+
+  let distScale = 1;
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    // Pull the camera back on narrow viewports so the building stays in frame
+    distScale = Math.max(1, 1.5 / camera.aspect);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let t = 0;
+  function frame() {
+    requestAnimationFrame(frame);
+    if (!visible) { clock.getDelta(); return; }
+    const dt = Math.min(clock.getDelta(), 0.05);
+    t += dt;
+
+    if (!reduceMotion) {
+      people.forEach(pr => updatePerson(pr, dt));
+      tags.forEach(updateTagTrail);
+
+      rangeTimer -= dt;
+      if (rangeTimer <= 0) {
+        triggerRanging();
+        rangeTimer = 1.1 + Math.random();
+      }
+      rangeT += dt;
+      const ro = Math.max(0, 0.85 * (1 - rangeT / 0.8));
+      rangePool.forEach(l => { l.material.opacity = ro; });
+
+      rings.forEach(r => {
+        if (r.t > 1.2) { r.mesh.material.opacity = 0; return; }
+        r.t += dt;
+        const k = r.t / 1.2;
+        r.mesh.scale.setScalar(1 + k * 9);
+        r.mesh.material.opacity = 0.75 * (1 - k);
+      });
+
+      anchors.forEach(a => {
+        a.flash = Math.max(0, a.flash - dt * 2.2);
+        const s = a.base + a.flash * 1.6 + Math.sin(t * 2 + a.mesh.position.x) * 0.15;
+        a.glow.scale.set(s, s, 1);
+      });
+
+      updatePackets(dt);
+      serverFlash = Math.max(0, serverFlash - dt * 1.5);
+      serverGlow.material.opacity = 0.18 + serverFlash * 0.5;
+      serverLeds.forEach((led, i) => {
+        led.material.opacity = 0.45 + 0.35 * Math.sin(t * 3 + i * 2.1) + serverFlash * 0.3;
+      });
+    }
+
+    const targetAng = (reduceMotion ? 0.6 : t * 0.07) + mx * 0.4;
+    ang += (targetAng - ang) * 0.04;
+    camY += ((24 - my * 6) - camY) * 0.04;
+    const d = cam.dist * distScale;
+    camera.position.set(Math.sin(ang) * d, camY, Math.cos(ang) * d);
+    camera.lookAt(0, 5, 0);
+
+    renderer.render(scene, camera);
+  }
+  frame();
+
+  // ---- HUD event feed ----
+  const feedEl = document.getElementById('hud-feed');
+  const ZONES = ['Ward B', 'OR-3', 'Radiology', 'ICU', 'Hallway C', 'Pharmacy', 'ER Bay 2', 'Recovery'];
+  const TYPES = { 'AFT-221': 'IV Pump', 'AFT-108': 'Ventilator', 'AFT-773': 'Wheelchair', 'AFT-412': 'Infusion Pump', 'AFT-056': 'Defibrillator', 'AFT-390': 'Ultrasound' };
+
+  function pushFeed(msg, cls) {
+    const div = document.createElement('div');
+    div.className = 'feed-item' + (cls ? ' ' + cls : '');
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    div.innerHTML = `<span>${msg}</span><span class="feed-time">${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}</span>`;
+    feedEl.prepend(div);
+    while (feedEl.children.length > 4) feedEl.removeChild(feedEl.lastChild);
+  }
+
+  function randomFeed() {
+    const tag = tags[(Math.random() * tags.length) | 0];
+    const zone = ZONES[(Math.random() * ZONES.length) | 0];
+    const type = TYPES[tag.id];
+    const roll = Math.random();
+    if (roll < 0.35) pushFeed(`${tag.id} · ${type} entered ${zone}`, 'green');
+    else if (roll < 0.55) pushFeed(`${tag.id} position update — ±24cm`);
+    else if (roll < 0.7) pushFeed(`${type} ${tag.id} idle in ${zone} for 12 min`);
+    else if (roll < 0.85) pushFeed(`Geofence alert — ${tag.id} left ${zone}`, 'green');
+    else pushFeed(`GW-1001 synced ${8 + ((Math.random() * 40) | 0)} position fixes → server`, 'amber');
+  }
+
+  if (feedEl && !reduceMotion) {
+    (function feedLoop() {
+      if (visible) randomFeed();
+      setTimeout(feedLoop, 2200 + Math.random() * 1800);
+    })();
+  }
+})();
+
+// ── DYNAMIC UI EXTRAS ──────────────────────────────────────────────────────
+(function () {
+  // Count-up hero stats
+  if (typeof gsap !== 'undefined') {
+    document.querySelectorAll('.stat-num .accent[data-count]').forEach(el => {
+      const end = parseFloat(el.dataset.count);
+      const dec = el.dataset.count.includes('.') ? 1 : 0;
+      const obj = { v: 0 };
+      gsap.to(obj, {
+        v: end, duration: 1.8, delay: 0.7, ease: 'power2.out',
+        onUpdate: () => { el.textContent = obj.v.toFixed(dec); },
+      });
+    });
+  }
+
+  // Cursor spotlight on cards
+  document.querySelectorAll('.feat-card, .ind-card, .step-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+})();
+
 // ── GSAP SCROLL ANIMATIONS ─────────────────────────────────────────────────
 (function () {
   if (typeof gsap === 'undefined') return;
@@ -1430,6 +2347,22 @@
     gsap.to(el, {
       opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: i * 0.08,
       scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+    });
+  });
+
+  // Digital twin
+  gsap.from('.twin-header', {
+    opacity: 0, y: 24, duration: 0.7, ease: 'power2.out',
+    scrollTrigger: { trigger: '#digital-twin', start: 'top 80%' },
+  });
+  gsap.from('.twin-stage', {
+    opacity: 0, duration: 1.1, ease: 'power2.out',
+    scrollTrigger: { trigger: '.twin-stage', start: 'top 85%' },
+  });
+  gsap.utils.toArray('.twin-note').forEach((el, i) => {
+    gsap.from(el, {
+      opacity: 0, y: 18, duration: 0.6, ease: 'power2.out', delay: i * 0.1,
+      scrollTrigger: { trigger: '.twin-notes', start: 'top 92%' },
     });
   });
 
